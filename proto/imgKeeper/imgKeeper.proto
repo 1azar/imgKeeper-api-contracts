@@ -1,0 +1,45 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+package imgKeeper;
+
+option go_package = "kasimov.imgKeeper.v1;imgKeeperv1";
+
+// ImgKeeper is service for uploading & downloading .
+service ImgKeeper {
+
+  rpc UploadImg(stream ImgUploadReq) returns(ImgUploadRes);
+
+  rpc DownloadImg(ImgDownloadReq) returns(stream ImgDownloadRes);
+
+  rpc ImgList(google.protobuf.Empty) returns(ImgListRes);
+}
+
+message ImgUploadReq {
+  string fileName = 1;
+  bytes chunk = 2;
+}
+
+message ImgUploadRes {
+  string fileName = 1;
+  uint32 size = 2;
+}
+
+message ImgDownloadReq {
+  string fileName = 1;
+}
+
+message ImgDownloadRes {
+  string fileName = 1;
+  bytes chunk = 2;
+}
+
+message ImgListRes {
+  repeated ImgData data = 1;
+}
+
+message ImgData {
+  string fileName = 1;
+  google.protobuf.Timestamp createDate = 2;
+  google.protobuf.Timestamp updateDate = 3;
+}
