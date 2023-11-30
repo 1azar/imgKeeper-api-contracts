@@ -1,6 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
-import "google/protobuf/timestamp.proto";
 package imgKeeper;
 
 option go_package = "kasimov.imgKeeper.v1;imgKeeperv1";
@@ -12,7 +10,7 @@ service ImgKeeper {
 
   rpc DownloadImg(ImgDownloadReq) returns(stream ImgDownloadRes);
 
-  rpc ImgList(google.protobuf.Empty) returns(stream ImgListRes);
+  rpc ImgList(ImgListReq) returns(stream ImgListRes);
 }
 
 message ImgUploadReq {
@@ -36,6 +34,10 @@ message ImgDownloadRes {
 
 message ImgListRes {
   bytes chunk = 1;
+}
+
+message ImgListReq {
+  string client = 1;
 }
 
 //message ImgListRes {

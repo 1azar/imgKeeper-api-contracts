@@ -8,7 +8,6 @@ package imgKeeperv1
 
 import (
 	context "context"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -25,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type ImgKeeperClient interface {
 	UploadImg(ctx context.Context, opts ...grpc.CallOption) (ImgKeeper_UploadImgClient, error)
 	DownloadImg(ctx context.Context, in *ImgDownloadReq, opts ...grpc.CallOption) (ImgKeeper_DownloadImgClient, error)
-	ImgList(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (ImgKeeper_ImgListClient, error)
+	ImgList(ctx context.Context, in *ImgListReq, opts ...grpc.CallOption) (ImgKeeper_ImgListClient, error)
 }
 
 type imgKeeperClient struct {
@@ -102,7 +101,7 @@ func (x *imgKeeperDownloadImgClient) Recv() (*ImgDownloadRes, error) {
 	return m, nil
 }
 
-func (c *imgKeeperClient) ImgList(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (ImgKeeper_ImgListClient, error) {
+func (c *imgKeeperClient) ImgList(ctx context.Context, in *ImgListReq, opts ...grpc.CallOption) (ImgKeeper_ImgListClient, error) {
 	stream, err := c.cc.NewStream(ctx, &ImgKeeper_ServiceDesc.Streams[2], "/imgKeeper.ImgKeeper/ImgList", opts...)
 	if err != nil {
 		return nil, err
@@ -140,7 +139,7 @@ func (x *imgKeeperImgListClient) Recv() (*ImgListRes, error) {
 type ImgKeeperServer interface {
 	UploadImg(ImgKeeper_UploadImgServer) error
 	DownloadImg(*ImgDownloadReq, ImgKeeper_DownloadImgServer) error
-	ImgList(*empty.Empty, ImgKeeper_ImgListServer) error
+	ImgList(*ImgListReq, ImgKeeper_ImgListServer) error
 	mustEmbedUnimplementedImgKeeperServer()
 }
 
@@ -154,7 +153,7 @@ func (UnimplementedImgKeeperServer) UploadImg(ImgKeeper_UploadImgServer) error {
 func (UnimplementedImgKeeperServer) DownloadImg(*ImgDownloadReq, ImgKeeper_DownloadImgServer) error {
 	return status.Errorf(codes.Unimplemented, "method DownloadImg not implemented")
 }
-func (UnimplementedImgKeeperServer) ImgList(*empty.Empty, ImgKeeper_ImgListServer) error {
+func (UnimplementedImgKeeperServer) ImgList(*ImgListReq, ImgKeeper_ImgListServer) error {
 	return status.Errorf(codes.Unimplemented, "method ImgList not implemented")
 }
 func (UnimplementedImgKeeperServer) mustEmbedUnimplementedImgKeeperServer() {}
@@ -218,7 +217,7 @@ func (x *imgKeeperDownloadImgServer) Send(m *ImgDownloadRes) error {
 }
 
 func _ImgKeeper_ImgList_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(empty.Empty)
+	m := new(ImgListReq)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
