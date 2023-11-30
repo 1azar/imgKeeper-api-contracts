@@ -12,7 +12,7 @@ service ImgKeeper {
 
   rpc DownloadImg(ImgDownloadReq) returns(stream ImgDownloadRes);
 
-  rpc ImgList(google.protobuf.Empty) returns(ImgListRes);
+  rpc ImgList(google.protobuf.Empty) returns(stream ImgListRes);
 }
 
 message ImgUploadReq {
@@ -35,11 +35,15 @@ message ImgDownloadRes {
 }
 
 message ImgListRes {
-  repeated ImgData data = 1;
+  bytes chunk = 1;
 }
 
-message ImgData {
-  string fileName = 1;
-  google.protobuf.Timestamp createDate = 2;
-  google.protobuf.Timestamp updateDate = 3;
-}
+//message ImgListRes {
+//  repeated ImgData data = 1;
+//}
+//
+//message ImgData {
+//  string fileName = 1;
+//  google.protobuf.Timestamp createDate = 2;
+//  google.protobuf.Timestamp updateDate = 3;
+//}
