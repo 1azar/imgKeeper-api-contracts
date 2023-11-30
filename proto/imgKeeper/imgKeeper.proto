@@ -39,13 +39,3 @@ message ImgListRes {
 message ImgListReq {
   string emptyString = 1;
 }
-
-message ImgListRes {
-  repeated ImgData data = 1;
-}
-
-message ImgData {
-  string fileName = 1;
-  google.protobuf.Timestamp createDate = 2;
-  google.protobuf.Timestamp updateDate = 3;
-}
