@@ -37,7 +37,7 @@ message ImgListRes {
 }
 
 message ImgListReq {
-  string EmptyString = 1;
+  string emptyString = 1;
 }
 
 //message ImgListRes {
