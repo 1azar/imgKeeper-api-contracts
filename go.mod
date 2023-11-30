@@ -3,13 +3,11 @@ module imgKeeper-api-contracts
 go 1.21
 
 require (
-	github.com/golang/protobuf v1.5.3
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
 )
 
 require (
-	github.com/1azar/imgKeeper-api-contracts v0.0.0-20231130065316-8dfa0aa18ba5 // indirect
 	golang.org/x/net v0.14.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
